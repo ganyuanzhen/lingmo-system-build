@@ -20,17 +20,19 @@ jobs:
         run: sudo apt update
 
       - name: install base pkg
-        run: sudo apt install -y sudo dctrl-tools live-build wget isolinux syslinux
+        run: sudo apt install -y sudo dpkg-dev dctrl-tools live-build wget isolinux syslinux
 
       - name: Install Lingmo Debootstrap
         run: |
-            cd lingmo-debootstrap/ && sudo make install
-            # sudo apt build-dep ./
+            cd lingmo-debootstrap/
+            sudo apt build-dep ./
+            debuild -us -uc -b
             cd ../
+            sudo apt install *.deb
 
       - name: Install Lingmo System Build
         run: |
-            # sudo apt build-dep ./
+            sudo apt build-dep ./
             sudo make install
 
       - name: Config Base Settings
@@ -40,7 +42,6 @@ jobs:
             mv config/ build/
             cd build/
             sudo chmod +x auto/*
-            ls
             sudo lingmo-system-build clean
             sudo lingmo-system-build config           
 
