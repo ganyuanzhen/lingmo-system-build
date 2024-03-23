@@ -1,0 +1,87 @@
+name: Build
+
+permissions: write-all
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  debian:
+    name: Building iso disk image
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Update source
+        run: sudo apt update
+
+      - name: install base pkg
+        run: sudo apt install -y sudo dctrl-tools lingmo-system-build wget isolinux syslinux
+
+      - name: Install Lingmo Debootstrap
+        run: |
+            wget http://ftp.cn.debian.org/debian/pool/main/d/lingmo-debootstrap/lingmo-debootstrap_1.0.134_all.deb
+            sudo apt install ./lingmo-debootstrap_1.0.134_all.deb
+            cd lingmo-debootstrap
+            make install
+
+      - name: Install Lingmo System Build
+        run: |
+            wget http://ftp.cn.debian.org/debian/pool/main/l/lingmo-system-build/lingmo-system-build_20230502_all.deb
+            sudo apt install ./lingmo-system-build_20230502_all.deb
+            make install
+
+      - name: Config Base Settings
+        run: |
+            mkdir build/
+            mv auto/ build/
+            mv config/ build/
+            cd build/
+            sudo chmod +x auto/*
+            sudo lingmo-system-build clean
+            sudo lingmo-system-build config           
+
+      - name: Default config#1
+        run: |
+            cd build/
+            sudo lingmo-system-build build
+
+      - name: Read Upload
+        run: |
+            mkdir artifact/
+            mv build/out/* artifact/
+
+            
+      - name: Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: ${{ github.workspace }}/artifact/
+      #
+     # - name: Confirm iso
+      #  run: sudo mv config/out/*.iso config/out/LingmoOS-2.0-Polaris-beta-dev-desktop-amd64.iso
+      #
+     # - name: Create Release
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  env:
+     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       # with:
+     #     tag_name: 2.0.0-beta3-dev
+     #     release_name: Release LingmoOS 2.0 beta3 dev
+    #      draft: false
+     #     prerelease: false
+    #  - name: Upload Release Asset
+    #    id: upload-release-asset
+    #    uses: actions/upload-release-asset@v1
+    #    env:
+    #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #    with:
+     #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #    asset_path: ${{ github.workspace }}/config/out/*
+     #     asset_name: LingmoOS-2.0-Polaris-beta-dev-desktop-amd64.iso
+      #    asset_content_type: application/iso
