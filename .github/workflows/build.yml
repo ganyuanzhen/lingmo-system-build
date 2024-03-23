@@ -20,7 +20,7 @@ jobs:
         run: sudo apt update
 
       - name: install base pkg
-        run: sudo apt install -y sudo dctrl-tools lingmo-system-build wget isolinux syslinux
+        run: sudo apt install -y sudo dctrl-tools live-build wget isolinux syslinux
 
       - name: Install Lingmo Debootstrap
         run: |
