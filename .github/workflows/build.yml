@@ -24,10 +24,7 @@ jobs:
 
       - name: Install Lingmo Debootstrap
         run: |
-            cd lingmo-debootstrap/
-            debuild -us -uc -b
-            cd ../
-            sudo apt install *.deb
+            cd lingmo-debootstrap/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && sudo apt install *.deb
 
       - name: Install Lingmo System Build
         run: |
