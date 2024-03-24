@@ -1,0 +1,3 @@
+lingmo-debootstrap source: custom-compression-in-debian-source-options compression = gzip [debian/source/options:*]
+lingmo-debootstrap source: custom-compression-in-debian-rules dh_builddeb -plingmo-debootstrap * -- -Zgzip [debian/rules:*]
+lingmo-debootstrap source: custom-compression-in-debian-rules dh_builddeb -plingmo-debootstrap-udeb -- -Zxz [debian/rules:*]

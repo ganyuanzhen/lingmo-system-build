@@ -1,0 +1,17 @@
+mirror_style release
+download_style apt
+finddebs_style from-indices
+variants - buildd fakechroot minbase
+keyring /usr/share/keyrings/pardus-archive-keyring.gpg
+default_mirror http://depo.pardus.org.tr/pardus
+
+# include common settings
+if [ -e "$LINGMO-DEBOOTSTRAP_DIR/scripts/debian-common" ]; then
+ . "$LINGMO-DEBOOTSTRAP_DIR/scripts/debian-common"
+elif [ -e /lingmo-debootstrap/debian-common ]; then
+ . /lingmo-debootstrap/debian-common
+elif [ -e "$LINGMO-DEBOOTSTRAP_DIR/debian-common" ]; then
+ . "$LINGMO-DEBOOTSTRAP_DIR/debian-common"
+else
+ error 1 NOCOMMON "File not found: debian-common"
+fi

@@ -1,0 +1,18 @@
+mirror_style release
+download_style apt
+finddebs_style from-indices
+variants - buildd fakechroot minbase
+default_mirror http://archive.debian.org/debian
+keyring /usr/share/keyrings/debian-archive-removed-keys.gpg
+force_md5
+
+# include common settings
+if [ -e "$LINGMO-DEBOOTSTRAP_DIR/scripts/debian-common" ]; then
+ . "$LINGMO-DEBOOTSTRAP_DIR/scripts/debian-common"
+elif [ -e /lingmo-debootstrap/debian-common ]; then
+ . /lingmo-debootstrap/debian-common
+elif [ -e "$LINGMO-DEBOOTSTRAP_DIR/debian-common" ]; then
+ . "$LINGMO-DEBOOTSTRAP_DIR/debian-common"
+else
+ error 1 NOCOMMON "File not found: debian-common"
+fi

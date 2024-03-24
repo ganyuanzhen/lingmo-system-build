@@ -1,0 +1,6 @@
+lingmo-debootstrap
+lingmo-debootstrap-udeb
+files
+*.debhelper.log
+*.substvars
+
