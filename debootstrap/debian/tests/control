@@ -1,6 +1,6 @@
 Tests: debian-testing
 Depends:
- lingmo-debootstrap,
+ debootstrap,
  libdistro-info-perl,
  libdpkg-perl,
  libipc-run-perl,
@@ -13,7 +13,7 @@ Restrictions: allow-stderr, needs-root
 
 Tests: unsorted-packages-files
 Depends:
- lingmo-debootstrap,
+ debootstrap,
  python3-debian,
  python3-flask,
  python3-requests,
@@ -21,7 +21,7 @@ Restrictions: allow-stderr
 
 Tests: arch-all-support
 Depends:
- lingmo-debootstrap,
+ debootstrap,
  python3-apt,
  python3-flask,
  python3-requests,

@@ -55,7 +55,7 @@ then
 			rm -f chroot/root/preseed
 
 			# After preseeding debconf, reconfigure packages that have already
-			# been installed in the lingmo-debootstrap phase.
+			# been installed in the debootstrap phase.
 			# Strip comments and empty lines and take first column (pkg name).
 			sed -e 's/[[:space:]]*#.*//' -e '/^[[:space:]]*$/d' \
 				-e 's/[[:space:]].*//g' "${PRESEED}" | \

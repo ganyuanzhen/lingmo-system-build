@@ -17,7 +17,7 @@ Package: lingmo-system-build
 Architecture: all
 Depends:
  cpio,
- lingmo-debootstrap,
+ debootstrap,
  ${misc:Depends},
 Recommends:
  apt-utils,

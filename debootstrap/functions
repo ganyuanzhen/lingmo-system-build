@@ -493,7 +493,7 @@ debfor () {
 			[ "$p" = "$pkg" ] || continue;
 			echo "$path"
 		done
-	 done <"$TARGET/lingmo-debootstrap/debpaths"
+	 done <"$TARGET/debootstrap/debpaths"
 	)
 }
 
@@ -819,12 +819,12 @@ download_debs () {
 				debcache="$(echo "$p"_"$ver"_"$arc".deb | sed 's/:/%3a/')"
 				if [ -z "$CACHE_DIR" ] && get "$m/$fil" "$TARGET/$debdest" "$checksum" "$size"; then
 					dloaddebs=$(($dloaddebs + $size))
-					echo >>"$TARGET/lingmo-debootstrap/deburis" "$p $ver $m/$fil"
-					echo >>"$TARGET/lingmo-debootstrap/debpaths" "$p $debdest"
+					echo >>"$TARGET/debootstrap/deburis" "$p $ver $m/$fil"
+					echo >>"$TARGET/debootstrap/debpaths" "$p $debdest"
 				elif [ -d "$CACHE_DIR" ] && get "$m/$fil" "$CACHE_DIR/$debcache" "$checksum" "$size"; then
 					dloaddebs=$(($dloaddebs + $size))
-					echo >>"$TARGET/lingmo-debootstrap/deburis" "$p $ver $m/$fil"
-					echo >>"$TARGET/lingmo-debootstrap/debpaths" "$p $debdest"
+					echo >>"$TARGET/debootstrap/deburis" "$p $ver $m/$fil"
+					echo >>"$TARGET/debootstrap/debpaths" "$p $debdest"
 					cp "$CACHE_DIR/$debcache" "$TARGET/$debdest"
 				else
 					warning COULDNTDL "Couldn't download package %s (ver %s arch %s) at %s" "$p" "$ver" "$arc" "$m/$fil"
@@ -889,7 +889,7 @@ download_release () {
 	dloaddebs=0
 
 	progress "$dloaddebs" "$totaldebs" DOWNDEBS "Downloading packages"
-	:>"$TARGET/lingmo-debootstrap/debpaths"
+	:>"$TARGET/debootstrap/debpaths"
 
 	pkgs_to_get="$*"
 	for s in $SUITE $EXTRA_SUITES; do
@@ -945,7 +945,7 @@ download_main () {
 	local m1 path pkgdest debdest p s c m
 	m1="${MIRRORS%% *}"
 
-	:>"$TARGET/lingmo-debootstrap/debpaths"
+	:>"$TARGET/debootstrap/debpaths"
 	for p in "$@"; do
 		for s in $SUITE $EXTRA_SUITES; do
 			for c in $COMPONENTS; do
@@ -963,7 +963,7 @@ download_main () {
 					checksum="${details##* }"; details="${details% *}"
 					debdest="$($DLDEST deb $details)"
 					if get "$m/${details##* }" "$TARGET/$debdest" "$checksum" "$size"; then
-						echo >>"$TARGET/lingmo-debootstrap/debpaths" "$p $debdest"
+						echo >>"$TARGET/debootstrap/debpaths" "$p $debdest"
 						details="done"
 						break
 					else
@@ -1141,9 +1141,9 @@ in_target_failmsg () {
 		warning "$code" "$msg" "$arg"
 		# Try to point user at actual failing package.
 		msg="See %s for details"
-		if [ -e "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" ]; then
-			arg="$TARGET/lingmo-debootstrap/lingmo-debootstrap.log"
-			local pkg="$(grep '^dpkg: error processing ' "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" | head -n 1 | sed 's/\(error processing \)\(package \|archive \)/\1/' | cut -d ' ' -f 4)"
+		if [ -e "$TARGET/debootstrap/debootstrap.log" ]; then
+			arg="$TARGET/debootstrap/debootstrap.log"
+			local pkg="$(grep '^dpkg: error processing ' "$TARGET/debootstrap/debootstrap.log" | head -n 1 | sed 's/\(error processing \)\(package \|archive \)/\1/' | cut -d ' ' -f 4)"
 			if [ -n "$pkg" ]; then
 				msg="$msg (possibly the package $pkg is at fault)"
 			fi
@@ -1488,7 +1488,7 @@ merge_usr() {
 	if [ "$MERGED_USR" = "no" ]; then
 	    # With the usrmerge becoming pseudo-essential we need to use this flag
 	    # to ensure that even if it gets installed the buildd is not converted
-	    # when lingmo-debootstrap needs to create an unmerged-usr installation.
+	    # when debootstrap needs to create an unmerged-usr installation.
 	    case "$CODENAME" in
 		etch*|lenny|squeeze|wheezy|jessie*|stretch|buster|bullseye)
 		    ;;
@@ -1516,7 +1516,7 @@ merge_usr() {
 	done
 }
 
-# Previous implementation of merged /usr: not used within lingmo-debootstrap,
+# Previous implementation of merged /usr: not used within debootstrap,
 # but used by mmdebstrap's hooks/merged-usr/setup00.sh, mainly to get
 # the correct per-architecture $link_dir list of non-default multilib
 # directories.
@@ -1532,7 +1532,7 @@ setup_merged_usr() {
 	if [ "$MERGED_USR" = "no" ]; then
 	    # With the usrmerge becoming pseudo-essential we need to use this flag
 	    # to ensure that even if it gets installed the buildd is not converted
-	    # when lingmo-debootstrap needs to create an unmerged-usr installation.
+	    # when debootstrap needs to create an unmerged-usr installation.
 	    case "$CODENAME" in
 		etch*|lenny|squeeze|wheezy|jessie*|stretch|buster|bullseye)
 		    ;;
@@ -1577,7 +1577,7 @@ setup_merged_usr() {
 ################################################################ pkgdetails
 
 # NOTE
-# For the lingmo-debootstrap udeb, pkgdetails is provided by the bootstrap-base
+# For the debootstrap udeb, pkgdetails is provided by the bootstrap-base
 # udeb, so the pkgdetails API needs to be kept in sync with that.
 
 if in_path perl; then
@@ -1729,8 +1729,8 @@ while (<STDIN>) {
 }' <"$pkgdest" "$@"
 		fi
 	}
-elif [ -e "/usr/lib/lingmo-debootstrap/pkgdetails" ]; then
-	PKGDETAILS="/usr/lib/lingmo-debootstrap/pkgdetails"
+elif [ -e "/usr/lib/debootstrap/pkgdetails" ]; then
+	PKGDETAILS="/usr/lib/debootstrap/pkgdetails"
 elif [ -e "$DEBOOTSTRAP_DIR/pkgdetails" ]; then
 	PKGDETAILS="$DEBOOTSTRAP_DIR/pkgdetails"
 else

@@ -15,15 +15,15 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="Bootstrap a Debian system with lingmo-debootstrap(8)"
+DESCRIPTION="Bootstrap a Debian system with debootstrap(8)"
 USAGE="${PROGRAM} [--force]"
 
 # Processing arguments and configuration files
 Init_config_data "${@}"
 
-if ! command -v lingmo-debootstrap >/dev/null
+if ! command -v debootstrap >/dev/null
 then
-	Echo_error "lingmo-debootstrap - command not found"
+	Echo_error "debootstrap - command not found"
 	exit 1
 fi
 
@@ -32,7 +32,7 @@ Check_crossarchitectures
 
 Echo_message "Begin bootstrapping system..."
 
-Check_package host /usr/sbin/lingmo-debootstrap lingmo-debootstrap
+Check_package host /usr/sbin/debootstrap debootstrap
 
 # Checking stage file
 Check_stagefile "bootstrap"
@@ -50,7 +50,7 @@ Print_breakage ()
 # Creating chroot directory
 mkdir -p chroot
 
-# Setting lingmo-debootstrap options
+# Setting debootstrap options
 if [ -n "${LINGMO_SYS_BUILD_ARCHITECTURE}" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LINGMO_SYS_BUILD_ARCHITECTURE}"
@@ -85,8 +85,8 @@ then
 	fi
 
 	Print_breakage
-	Echo_message "Running lingmo-debootstrap (download-only)..."
-	lingmo-debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
+	Echo_message "Running debootstrap (download-only)..."
+	debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
 
 	# Removing old cache
 	rm -f cache/packages.bootstrap/*.deb
@@ -97,7 +97,7 @@ then
 fi
 
 Print_breakage
-Echo_message "Running lingmo-debootstrap..."
+Echo_message "Running debootstrap..."
 
 # Run appropriate bootstrap, i.e. foreign or regular bootstrap
 if [ "${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_ARCHITECTURE}" = "${LINGMO_SYS_BUILD_ARCHITECTURE}" ]; then
@@ -108,16 +108,16 @@ if [ "${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_ARCHITECTURE}" = "${LINGMO_SYS_BUILD_ARC
 	fi
 
 	Echo_message "Bootstrap will be foreign"
-	lingmo-debootstrap ${DEBOOTSTRAP_OPTIONS} --foreign "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
+	debootstrap ${DEBOOTSTRAP_OPTIONS} --foreign "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
 
-	Echo_message "Running lingmo-debootstrap second stage under QEMU"
+	Echo_message "Running debootstrap second stage under QEMU"
 	cp ${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_STATIC} chroot/usr/bin
-	Chroot chroot /bin/sh /lingmo-debootstrap/lingmo-debootstrap --second-stage ${FOREIGN_DEBOOTSTRAP_OPTIONS}
+	Chroot chroot /bin/sh /debootstrap/debootstrap --second-stage ${FOREIGN_DEBOOTSTRAP_OPTIONS}
 else
-	lingmo-debootstrap ${DEBOOTSTRAP_OPTIONS} "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
+	debootstrap ${DEBOOTSTRAP_OPTIONS} "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
 fi
 
-# Deconfiguring lingmo-debootstrap configurations
+# Deconfiguring debootstrap configurations
 rm -f chroot/etc/hosts
 
 # Removing bootstrap cache

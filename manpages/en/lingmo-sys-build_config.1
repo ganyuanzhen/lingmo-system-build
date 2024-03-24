@@ -92,9 +92,9 @@
 .br
 	[\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR]
 .br
-	[\fB\-\-lingmo-debootstrap\-options\fR \fIOPTION\fR|"\fIOPTIONS\fR"]
+	[\fB\-\-debootstrap\-options\fR \fIOPTION\fR|"\fIOPTIONS\fR"]
 .br
-	[\fB\-\-lingmo-debootstrap\-script\fR \fISCRIPT\fR]
+	[\fB\-\-debootstrap\-script\fR \fISCRIPT\fR]
 .br
 	[\fB\-\-debug\fR]
 .br
@@ -324,10 +324,10 @@ defines the distribution where the debian\-installer files should be taken out f
 defines whether the graphical version of the debian\-installer should be provided alongside the text based one. This defaults to true.
 .IP "\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR" 4
 sets the filename or URL for an optionally used and included preseeding file for debian\-installer. If config/binary_debian\-installer/preseed.cfg exists, it will be used by default. 
-.IP "\fB\-\-lingmo-debootstrap\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
-passes the given options to lingmo-debootstrap when setting up the base system.
-.IP "\fB\-\-lingmo-debootstrap\-script\fR \fISCRIPT\fR" 4
-tells lingmo-debootstrap to use an alternate bootstrap script (last parameter to lingmo-debootstrap).
+.IP "\fB\-\-debootstrap\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
+passes the given options to debootstrap when setting up the base system.
+.IP "\fB\-\-debootstrap\-script\fR \fISCRIPT\fR" 4
+tells debootstrap to use an alternate bootstrap script (last parameter to debootstrap).
 .IP "\fB\-\-debug\fR" 4
 turns on debugging informational messages.
 .IP "\fB\-d\fR|\fB\-\-distribution\fR \fICODENAME\fR" 4

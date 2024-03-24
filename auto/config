@@ -42,6 +42,6 @@ lingmo-sys-build config noauto \
     --security true \
     --clean
     "${@}"
-# --lingmo-debootstrap-options "--include=apt-transport-https,ca-certificates,openssl,gnupg,vim" \
+# --debootstrap-options "--include=apt-transport-https,ca-certificates,openssl,gnupg,vim" \
 #    --linux-packages "linux-image-6.7.4-amd64-unsigned linux-headers-6.7.4-amd64" \
 #        --linux-flavours "6.7.4-amd64-unsigned" \

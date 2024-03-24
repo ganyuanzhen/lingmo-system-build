@@ -63,8 +63,8 @@ APT_OPTIONS="--yes -o Acquire::Retries=5"
 # Set options to use with aptitude
 APTITUDE_OPTIONS="--assume-yes -o Acquire::Retries=5"
 
-# Set options to use with lingmo-debootstrap
-# Set script to use with lingmo-debootstrap
+# Set options to use with debootstrap
+# Set script to use with debootstrap
 # DEBOOTSTRAP_SCRIPT=""
 
 # Set options to use with gzip

@@ -11,10 +11,10 @@ export PATH
 ###########################################################################
 
 if [ -z "$DEBOOTSTRAP_DIR" ]; then
-	if [ -x /lingmo-debootstrap/lingmo-debootstrap ]; then
-		DEBOOTSTRAP_DIR=/lingmo-debootstrap
+	if [ -x /debootstrap/debootstrap ]; then
+		DEBOOTSTRAP_DIR=/debootstrap
 	else
-		DEBOOTSTRAP_DIR=/usr/share/lingmo-debootstrap
+		DEBOOTSTRAP_DIR=/usr/share/debootstrap
 	fi
 fi
 
@@ -118,7 +118,7 @@ usage()
                              (also disables automatic fallingmo-sys-buildack to HTTPS in case
                              of a missing keyring), aborting otherwise
       --no-resolve-deps      don't try to resolve dependencies automatically
-      --log-extra-deps       record extra dependency info in lingmo-debootstrap.log
+      --log-extra-deps       record extra dependency info in debootstrap.log
       --cache-dir=DIR        Use specified directory as package cache directory
 
       --unpack-tarball=T     acquire .debs from a tarball instead of http
@@ -156,12 +156,12 @@ if [ $# != 0 ] ; then
 		exit 0
 		;;
 	    --version)
-		echo "lingmo-debootstrap $VERSION"
+		echo "debootstrap $VERSION"
 		exit 0
 		;;
 	    --debian-installer)
 		if ! (echo -n "" >&3) 2>/dev/null; then
-			error 1 ARG_DIBYHAND "If running lingmo-debootstrap by hand, don't use --debian-installer"
+			error 1 ARG_DIBYHAND "If running debootstrap by hand, don't use --debian-installer"
 		fi
 		USE_DEBIANINSTALLER_INTERACTION=yes
 		shift
@@ -231,7 +231,7 @@ if [ $# != 0 ] ; then
 		LOG_EXTRA_DEPS=true
 		shift
 		;;
-	    --keep-lingmo-debootstrap-dir)
+	    --keep-debootstrap-dir)
 		KEEP_DEBOOTSTRAP_DIR=true
 		shift
 		;;
@@ -612,7 +612,7 @@ export ARCH SUITE EXTRA_SUITES TARGET CHROOT_CMD SHA_SIZE DEBOOTSTRAP_CHECKSUM_F
 
 if am_doing_phase first_stage second_stage; then
 	if in_path id && [ "$(id -u)" -ne 0 ]; then
-		error 1 NEEDROOT "lingmo-debootstrap can only run as root"
+		error 1 NEEDROOT "debootstrap can only run as root"
 	fi
 	if ! in_path chroot; then
 		error 1 NEEDCHROOT "Cannot find chroot executable in \$PATH"
@@ -630,7 +630,7 @@ fi
 ###########################################################################
 
 if [ "$TARGET" != "" ]; then
-	mkdir -p "$TARGET/lingmo-debootstrap"
+	mkdir -p "$TARGET/debootstrap"
 fi
 
 ###########################################################################
@@ -643,7 +643,7 @@ fi
 #    fd 7,8: spare for scripts
 
 if [ "$USE_DEBIANINSTALLER_INTERACTION" = yes ]; then
-	#    stdout=stderr: full log of lingmo-debootstrap run
+	#    stdout=stderr: full log of debootstrap run
 	#    fd 3: I:/W:/etc information
 	exec 4>&3
 elif am_doing_phase printdebs; then
@@ -653,9 +653,9 @@ elif am_doing_phase printdebs; then
 else
 	#    stderr: used in exceptional circumstances only
 	#    stdout: I:/W:/etc information
-	#    $TARGET/lingmo-debootstrap/lingmo-debootstrap.log: full log of lingmo-debootstrap run
+	#    $TARGET/debootstrap/debootstrap.log: full log of debootstrap run
 	exec 4>&1
-	exec >>"$TARGET/lingmo-debootstrap/lingmo-debootstrap.log"
+	exec >>"$TARGET/debootstrap/debootstrap.log"
 	exec 2>&1
 fi
 
@@ -774,34 +774,34 @@ if am_doing_phase dldebs; then
 fi
 
 if am_doing_phase save_variables; then
-	cp "$0"				 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
-	cp "$DEBOOTSTRAP_DIR/functions"	 "$TARGET/lingmo-debootstrap/functions"
-	cp "$SCRIPT"			 "$TARGET/lingmo-debootstrap/suite-script"
+	cp "$0"				 "$TARGET/debootstrap/debootstrap"
+	cp "$DEBOOTSTRAP_DIR/functions"	 "$TARGET/debootstrap/functions"
+	cp "$SCRIPT"			 "$TARGET/debootstrap/suite-script"
 	# pick up common setting scripts
-	cp "$DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/lingmo-debootstrap/"
-	echo "$ARCH"			>"$TARGET/lingmo-debootstrap/arch"
-	echo "$SUITE"			>"$TARGET/lingmo-debootstrap/suite"
+	cp "$DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/debootstrap/"
+	echo "$ARCH"			>"$TARGET/debootstrap/arch"
+	echo "$SUITE"			>"$TARGET/debootstrap/suite"
 	[ "" = "$EXTRA_SUITES" ] ||
-	echo "$EXTRA_SUITES"		>"$TARGET/lingmo-debootstrap/extra-suites"
+	echo "$EXTRA_SUITES"		>"$TARGET/debootstrap/extra-suites"
 	[ "" = "$VARIANT" ] ||
-	echo "$VARIANT"			>"$TARGET/lingmo-debootstrap/variant"
-	echo "$required"		>"$TARGET/lingmo-debootstrap/required"
-	echo "$base"			>"$TARGET/lingmo-debootstrap/base"
+	echo "$VARIANT"			>"$TARGET/debootstrap/variant"
+	echo "$required"		>"$TARGET/debootstrap/required"
+	echo "$base"			>"$TARGET/debootstrap/base"
 
-	chmod 755 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
+	chmod 755 "$TARGET/debootstrap/debootstrap"
 fi
 
 if am_doing_phase maketarball; then
 	(cd "$TARGET";
-	 tar czf - var/lib/apt var/cache/apt lingmo-debootstrap) >"$MAKE_TARBALL"
+	 tar czf - var/lib/apt var/cache/apt debootstrap) >"$MAKE_TARBALL"
 fi
 
 if am_doing_phase first_stage; then
 	choose_extractor
 
 	if [ -n "$UNPACK_TARBALL" ]; then
-		required=$(cat "$TARGET/lingmo-debootstrap/required")
-		base=$(cat "$TARGET/lingmo-debootstrap/base")
+		required=$(cat "$TARGET/debootstrap/required")
+		base=$(cat "$TARGET/debootstrap/base")
 		all_debs="$required $base"
 	fi
 
@@ -811,22 +811,22 @@ if am_doing_phase first_stage; then
 	first_stage_install
 
 	if ! am_doing_phase second_stage; then
-		cp "$0"				 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
-		cp "$DEBOOTSTRAP_DIR/functions"	 "$TARGET/lingmo-debootstrap/functions"
-		cp "$SCRIPT"			 "$TARGET/lingmo-debootstrap/suite-script"
+		cp "$0"				 "$TARGET/debootstrap/debootstrap"
+		cp "$DEBOOTSTRAP_DIR/functions"	 "$TARGET/debootstrap/functions"
+		cp "$SCRIPT"			 "$TARGET/debootstrap/suite-script"
 		# pick up common setting scripts
-		cp "$DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/lingmo-debootstrap/"
-		echo "$ARCH"			>"$TARGET/lingmo-debootstrap/arch"
-		echo "$SUITE"			>"$TARGET/lingmo-debootstrap/suite"
+		cp "$DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/debootstrap/"
+		echo "$ARCH"			>"$TARGET/debootstrap/arch"
+		echo "$SUITE"			>"$TARGET/debootstrap/suite"
 		[ "" = "$EXTRA_SUITES" ] ||
-		echo "$EXTRA_SUITES"		>"$TARGET/lingmo-debootstrap/extra-suites"
-		echo "$USER_MIRROR"		>"$TARGET/lingmo-debootstrap/mirror"
+		echo "$EXTRA_SUITES"		>"$TARGET/debootstrap/extra-suites"
+		echo "$USER_MIRROR"		>"$TARGET/debootstrap/mirror"
 		[ "" = "$VARIANT" ] ||
-		echo "$VARIANT"			>"$TARGET/lingmo-debootstrap/variant"
-		echo "$required"		>"$TARGET/lingmo-debootstrap/required"
-		echo "$base"			>"$TARGET/lingmo-debootstrap/base"
+		echo "$VARIANT"			>"$TARGET/debootstrap/variant"
+		echo "$required"		>"$TARGET/debootstrap/required"
+		echo "$base"			>"$TARGET/debootstrap/base"
 
-		chmod 755 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
+		chmod 755 "$TARGET/debootstrap/debootstrap"
 	fi
 
 	# create sources.list
@@ -849,26 +849,26 @@ if am_doing_phase second_stage; then
 	# possibly over NFS eg)
 	second_stage_install
 
-	if [ -e "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" ]; then
+	if [ -e "$TARGET/debootstrap/debootstrap.log" ]; then
 		if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
-			cp "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" "$TARGET/var/log/bootstrap.log"
+			cp "$TARGET/debootstrap/debootstrap.log" "$TARGET/var/log/bootstrap.log"
 		else
-			# lingmo-debootstrap.log is still open as stdout/stderr and needs
+			# debootstrap.log is still open as stdout/stderr and needs
 			# to remain so, but after unlinking it some NFS servers
 			# implement this by a temporary file in the same directory,
 			# which makes it impossible to rmdir that directory.
 			# Moving it instead works around the problem.
-			mv "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" "$TARGET/var/log/bootstrap.log"
+			mv "$TARGET/debootstrap/debootstrap.log" "$TARGET/var/log/bootstrap.log"
 		fi
 	fi
 	sync
 
 	if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
-		if [ -x "$TARGET/lingmo-debootstrap/lingmo-debootstrap" ]; then
-			chmod 644 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
+		if [ -x "$TARGET/debootstrap/debootstrap" ]; then
+			chmod 644 "$TARGET/debootstrap/debootstrap"
 		fi
 	else
-		rm -rf "$TARGET/lingmo-debootstrap"
+		rm -rf "$TARGET/debootstrap"
 	fi
 fi
 

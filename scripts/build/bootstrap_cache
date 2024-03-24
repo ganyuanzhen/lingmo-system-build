@@ -32,7 +32,7 @@ if ! In_list "bootstrap" ${LINGMO_SYS_BUILD_CACHE_STAGES}; then
 fi
 
 # Set non-default stage file name
-# Note, this (plus the applicable extension added below) must match that used in `bootstrap_lingmo-debootstrap`
+# Note, this (plus the applicable extension added below) must match that used in `bootstrap_debootstrap`
 STAGE_FILE="bootstrap_cache.${_ACTION}"
 
 case "${_ACTION}" in

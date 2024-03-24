@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Verify that lingmo-debootstrap'ing Debian testing produces a usable chroot,
+# Verify that debootstrap'ing Debian testing produces a usable chroot,
 # and in particular that using it with early 2017 versions of schroot and
 # pbuilder results in working pseudo-terminals (#817236)
 #
@@ -136,7 +136,7 @@ sub check_chroot {
     }
 
     if (-l "$chroot/dev/ptmx") {
-        # Necessary if lingmo-debootstrap is run inside some containers, see
+        # Necessary if debootstrap is run inside some containers, see
         # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#77
         diag("/dev/ptmx is a symbolic link");
         like(readlink("$chroot/dev/ptmx"), qr{(?:/dev/)?pts/ptmx},
@@ -333,12 +333,12 @@ my $distro_info = DebianDistroInfo->new;
 my $testing = $distro_info->testing;
 
 # Should specify multiple components for checking (see Bug#898738)
-if (!verbose_run([length($ENV{DEBOOTSTRAP_SCRIPT}) ? $ENV{DEBOOTSTRAP_SCRIPT} : 'lingmo-debootstrap',
-            '--include=lingmo-debootstrap,debian-archive-keyring,gnupg,hello,systemd',
+if (!verbose_run([length($ENV{DEBOOTSTRAP_SCRIPT}) ? $ENV{DEBOOTSTRAP_SCRIPT} : 'debootstrap',
+            '--include=debootstrap,debian-archive-keyring,gnupg,hello,systemd',
             '--variant=minbase',
             '--components=main,contrib,non-free',
             $testing, 'chroot.d', $mirror], '>&2')) {
-    BAIL_OUT("lingmo-debootstrap failed: $?");
+    BAIL_OUT("debootstrap failed: $?");
 }
 
 if (!verbose_run([qw(find chroot.d/dev -ls)], '>&2')) {
@@ -367,12 +367,12 @@ elsif (! -d '/run/systemd/system') {
 else {
     if (!verbose_run(['systemd-nspawn', '-D', 'chroot.d',
             "--bind=$ENV{AUTOPKGTEST_TMP}:/mnt",
-            '--bind-ro=/usr/sbin/lingmo-debootstrap',
-            '--bind-ro=/usr/share/lingmo-debootstrap',
+            '--bind-ro=/usr/sbin/debootstrap',
+            '--bind-ro=/usr/share/debootstrap',
             '--',
-            'lingmo-debootstrap', '--include=hello', '--variant=minbase',
+            'debootstrap', '--include=hello', '--variant=minbase',
             $testing, '/mnt/from-nspawn.d', $mirror], '>&2')) {
-        BAIL_OUT("lingmo-debootstrap wrapped in systemd-nspawn failed: $?");
+        BAIL_OUT("debootstrap wrapped in systemd-nspawn failed: $?");
     }
 
     check_chroot(chroot => "$ENV{AUTOPKGTEST_TMP}/from-nspawn.d", can_mknod_ptmx => 0,

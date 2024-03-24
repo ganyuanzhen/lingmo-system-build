@@ -93,7 +93,7 @@ libxrender1-udeb
 cdebconf-gtk-terminal
 libvte9-udeb
 # Not currently used
-clingmo-debootstrap-udeb
+cdebootstrap-udeb
 hdparm-udeb
 dhcp-client-udeb
 # This package is only useful in the d-i-demo

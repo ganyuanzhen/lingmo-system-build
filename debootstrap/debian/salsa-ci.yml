@@ -15,7 +15,7 @@ stages:
   - test extras
   - publish # Stage referenced by Salsa-CI template aptly stanza, so must exist even though not used
 
-# This tests running lingmo-debootstrap inside an unshared user namespace.
+# This tests running debootstrap inside an unshared user namespace.
 # Inside that namespace, mknod is not available.
 # In such an environment "mount -t proc proc /proc" will not work (see
 # #1031222) so this also tests whether the fallingmo-sys-buildack to bind-mounting
@@ -27,7 +27,7 @@ test-unshare:
     - job: build
       artifacts: true
   variables:
-    DEBOOTSTRAP_SCRIPT: $CI_PROJECT_DIR/lingmo-debootstrap
+    DEBOOTSTRAP_SCRIPT: $CI_PROJECT_DIR/debootstrap
     DEBOOTSTRAP_DIR: $CI_PROJECT_DIR
     AUTOPKGTEST_TMP: /tmp
   script:
@@ -47,7 +47,7 @@ test-buildd:
       apt-get update
       apt-get install --no-install-recommends -y wget distro-info
       for SUITE in bullseye bookworm trixie; do
-          env DEBOOTSTRAP_DIR="$CI_PROJECT_DIR" ./lingmo-debootstrap --variant=buildd "$SUITE" ./chroot
+          env DEBOOTSTRAP_DIR="$CI_PROJECT_DIR" ./debootstrap --variant=buildd "$SUITE" ./chroot
           # check if chroots before trixie are unmerged and chroots of trixie
           # or later are using merged-/usr
           case "$SUITE" in

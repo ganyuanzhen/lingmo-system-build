@@ -2,7 +2,7 @@
 
 DEFAULT_SETTINGS="/etc/live/build.conf"
 
-dpkg -l lingmo-debootstrap
+dpkg -l debootstrap
 
 if [ -e "${DEFAULT_SETTINGS}" ]; then
 	echo "Contents of ${DEFAULT_SETTINGS}:"

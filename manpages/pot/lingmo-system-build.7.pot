@@ -541,12 +541,12 @@ msgstr ""
 #. type: IP
 #: en/lingmo-system-build.7:89
 #, no-wrap
-msgid "B<lingmo-sys-build bootstrap_lingmo-debootstrap>(1)"
+msgid "B<lingmo-sys-build bootstrap_debootstrap>(1)"
 msgstr ""
 
 #. type: Plain text
 #: en/lingmo-system-build.7:91
-msgid "creates (bootstrap) a basic Debian root filesystem using lingmo-debootstrap(8)"
+msgid "creates (bootstrap) a basic Debian root filesystem using debootstrap(8)"
 msgstr ""
 
 #. type: SS
@@ -1283,8 +1283,8 @@ msgstr ""
 #. type: Plain text
 #: en/lingmo-system-build.7:221
 msgid ""
-"For example, lingmo-sys-build bootstrap_lingmo-debootstrap uses files named config/bootstrap and "
-"config/bootstrap_lingmo-debootstrap to read the options it will use. See the man "
+"For example, lingmo-sys-build bootstrap_debootstrap uses files named config/bootstrap and "
+"config/bootstrap_debootstrap to read the options it will use. See the man "
 "pages of individual commands for details about the names and formats of the "
 "files they use. Generally, these files contain variables with values "
 "assigned, one variable per line. Some programs in lingmo-system-build use pairs of "

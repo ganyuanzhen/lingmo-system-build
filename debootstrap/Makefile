@@ -5,7 +5,7 @@ all:
 
 clean:
 
-DSDIR=$(DESTDIR)/usr/share/lingmo-debootstrap
+DSDIR=$(DESTDIR)/usr/share/debootstrap
 install:
 	mkdir -p $(DSDIR)/scripts
 	mkdir -p $(DESTDIR)/usr/sbin
@@ -13,5 +13,5 @@ install:
 	cp -a scripts/* $(DSDIR)/scripts/
 	install -m 0644 functions $(DSDIR)/
 
-	sed 's/@VERSION@/$(VERSION)/g' lingmo-debootstrap >$(DESTDIR)/usr/sbin/lingmo-debootstrap
-	chmod 0755 $(DESTDIR)/usr/sbin/lingmo-debootstrap
+	sed 's/@VERSION@/$(VERSION)/g' debootstrap >$(DESTDIR)/usr/sbin/debootstrap
+	chmod 0755 $(DESTDIR)/usr/sbin/debootstrap

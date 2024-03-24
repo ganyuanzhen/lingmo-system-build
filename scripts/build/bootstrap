@@ -29,7 +29,7 @@ Setup_clean_exit
 
 # Bootstrapping system
 lingmo-sys-build bootstrap_cache restore "${@}"
-lingmo-sys-build bootstrap_lingmo-debootstrap "${@}"
+lingmo-sys-build bootstrap_debootstrap "${@}"
 lingmo-sys-build bootstrap_cache save "${@}"
 
 # Configuring chroot

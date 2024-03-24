@@ -21,13 +21,13 @@ endif
 	dh $@
 
 override_dh_auto_install:
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/lingmo-debootstrap
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/lingmo-debootstrap-udeb
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/debootstrap
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/debootstrap-udeb
 
 override_dh_gencontrol:
-	dh_gencontrol -- -Vlingmo-debootstrap:Recommends='$(RECOMMENDS)' -Vlingmo-debootstrap:Suggests='$(SUGGESTS)'
+	dh_gencontrol -- -Vdebootstrap:Recommends='$(RECOMMENDS)' -Vdebootstrap:Suggests='$(SUGGESTS)'
 
 # Specify gzip to mitigate #770217:
 override_dh_builddeb:
-	dh_builddeb -plingmo-debootstrap      -- -Zgzip
-	dh_builddeb -plingmo-debootstrap-udeb -- -Zxz
+	dh_builddeb -pdebootstrap      -- -Zgzip
+	dh_builddeb -pdebootstrap-udeb -- -Zxz

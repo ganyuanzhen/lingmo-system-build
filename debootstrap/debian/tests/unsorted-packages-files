@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# This test runs the out-of-order-mitm.py Flask app which lingmo-debootstrap is then
+# This test runs the out-of-order-mitm.py Flask app which debootstrap is then
 # pointed at.
 # out-of-order-mitm.py will return a Packages file which has an additional
 # `apt` stanza prepended, with the Version and Filename adjusted to point at
-# a lower, non-existent version.  Versions of lingmo-debootstrap which process
+# a lower, non-existent version.  Versions of debootstrap which process
 # _all_ Packages files entries will find the original stanza later in the file
 # (and succesfully fetch the corresponding package file): versions that don't
 # will find the prepended stanza and fail (with a 404 of the nonexistent
@@ -24,8 +24,8 @@ flask_pid=$!
 sleep 2
 
 tempdir=$(mktemp -d)
-# Run lingmo-debootstrap against our MitM "mirror", ignoring the inevitable GPG errors
-lingmo-debootstrap --download-only --variant minbase --no-check-gpg ${FLASK_DIST} $tempdir http://127.0.0.1:5000/${FLASK_DISTRO}/
+# Run debootstrap against our MitM "mirror", ignoring the inevitable GPG errors
+debootstrap --download-only --variant minbase --no-check-gpg ${FLASK_DIST} $tempdir http://127.0.0.1:5000/${FLASK_DISTRO}/
 rc=$?
 
 rm -rf $tempdir

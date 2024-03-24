@@ -1,18 +1,18 @@
 .TH DEBOOTSTRAP 8 2001-04-27 "Debian Project" "Debian GNU/Linux manual"
 .SH NAME
-lingmo-debootstrap \- Bootstrap a basic Debian system
+debootstrap \- Bootstrap a basic Debian system
 .SH SYNOPSIS
-.B lingmo-debootstrap
+.B debootstrap
 .RB [ OPTION\&.\&.\&. ]
 .I SUITE TARGET
 .RI [ MIRROR
 .RI [ SCRIPT ]]
 
-.B lingmo-debootstrap
+.B debootstrap
 .RB [ OPTION\&.\&.\&. ]
 \-\-second\-stage
 .SH DESCRIPTION
-.B lingmo-debootstrap
+.B debootstrap
 bootstraps a basic Debian system of
 .I SUITE
 into
@@ -67,7 +67,7 @@ Also use packages from the listed suites of the archive.
 Use packages from the listed components of the archive.
 .IP
 .IP "\fB\-\-no\-resolve\-deps\fP"
-By default, lingmo-debootstrap will attempt to automatically resolve any missing
+By default, debootstrap will attempt to automatically resolve any missing
 dependencies, warning if any are found.
 Note that this is not a complete dependency resolve in the sense of dpkg
 or apt, and that it is far better to specify the entire base system than
@@ -76,7 +76,7 @@ With this option set, this behaviour is disabled.
 .IP
 .IP "\fB\-\-log\-extra\-deps\fP"
 If you want to record additional dependencies when resolving package dependencies,
-set this option to track them through lingmo-debootstrap.log.
+set this option to track them through debootstrap.log.
 .IP
 .IP "\fB\-\-variant=minbase|buildd|fakechroot\fP"
 Name of the bootstrap script variant to use.
@@ -115,9 +115,9 @@ Produce more info about downloading.
 .IP "\fB\-\-print\-debs\fP"
 Print the packages to be installed, and exit.
 Note that an empty or non-existing TARGET directory must be specified so
-that lingmo-debootstrap can download Packages files to determine which packages
+that debootstrap can download Packages files to determine which packages
 should be installed, and to resolve dependencies. The TARGET directory
-will be deleted unless \-\-keep\-lingmo-debootstrap\-dir is specified.
+will be deleted unless \-\-keep\-debootstrap\-dir is specified.
 .IP
 .IP "\fB\-\-download\-only\fP"
 Download packages, but don't perform installation.
@@ -125,8 +125,8 @@ Download packages, but don't perform installation.
 .IP "\fB\-\-foreign\fP"
 Do the initial unpack phase of bootstrapping only, for example if the
 target architecture does not match the host architecture.
-A copy of lingmo-debootstrap sufficient for completing the bootstrap process
-will be installed as /lingmo-debootstrap/lingmo-debootstrap in the target filesystem.
+A copy of debootstrap sufficient for completing the bootstrap process
+will be installed as /debootstrap/debootstrap in the target filesystem.
 You can run it with the \fB\-\-second\-stage\fP option to complete the
 bootstrapping process.
 .IP
@@ -138,8 +138,8 @@ Other arguments are generally not needed.
 Run second stage in a subdirectory instead of root. (can be used to create
 a foreign chroot) (requires \-\-second\-stage)
 .IP
-.IP "\fB\-\-keep\-lingmo-debootstrap\-dir\fP"
-Don't delete the /lingmo-debootstrap directory in the target after completing the
+.IP "\fB\-\-keep\-debootstrap\-dir\fP"
+Don't delete the /debootstrap directory in the target after completing the
 installation.
 .IP
 .IP "\fB\-\-cache\-dir=DIR\fP"
@@ -155,8 +155,8 @@ downloaded packages.
 The resulting tarball may be passed to a later
 .BR \-\-unpack\-tarball .
 Note that an empty or non-existing TARGET directory must be specified so
-that lingmo-debootstrap can download packages to prepare the tarball. The TARGET
-directory will be deleted unless \-\-keep\-lingmo-debootstrap\-dir is specified.
+that debootstrap can download packages to prepare the tarball. The TARGET
+directory will be deleted unless \-\-keep\-debootstrap\-dir is specified.
 .IP
 .IP "\fB\-\-debian\-installer\fP"
 Used for internal purposes by the debian-installer
@@ -185,14 +185,14 @@ normal position of an InRelease file
 .PP 
 To setup a \fIstretch\fR system:
 .PP 
-     lingmo-debootstrap stretch ./stretch-chroot http://deb.debian.org/debian
+     debootstrap stretch ./stretch-chroot http://deb.debian.org/debian
 .PP
-     lingmo-debootstrap stretch ./stretch-chroot file:///LOCAL_MIRROR/debian
+     debootstrap stretch ./stretch-chroot file:///LOCAL_MIRROR/debian
 .PP
 Full process to create a complete Debian installation of \fIsid\fR (unstable)
 in a chroot:
 .PP
-     main # lingmo-debootstrap sid sid-root http://deb.debian.org/debian/
+     main # debootstrap sid sid-root http://deb.debian.org/debian/
      [ ... watch it download the whole system ]
      main # echo "proc sid-root/proc proc defaults 0 0" >> /etc/fstab
      main # mount proc sid-root/proc -t proc
@@ -201,6 +201,6 @@ in a chroot:
      main # cp /etc/hosts sid-root/etc/hosts
      main # chroot sid-root /bin/bash
 .SH AUTHOR
-.B lingmo-debootstrap
+.B debootstrap
 was written by Anthony Towns <ajt@debian.org>.
 This manpage was written by Matt Kraai <kraai@debian.org>.

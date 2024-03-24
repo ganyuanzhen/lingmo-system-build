@@ -43,7 +43,7 @@ case "${_ACTION}" in
 			mv chroot/etc/resolv.conf chroot/etc/resolv.conf.orig
 
 			# Also truncate it, otherwise we'll end up with the one
-			# created by lingmo-debootstrap in the final image.
+			# created by debootstrap in the final image.
 			#
 			# If you want to have a custom resolv.conf, please
 			# overwrite it with normal local_includes mechanism.

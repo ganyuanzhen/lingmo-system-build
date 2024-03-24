@@ -350,12 +350,12 @@ msgstr ""
 
 #. type: Plain text
 #: en/lingmo-sys-build_config.1:81
-msgid "  [B<--lingmo-debootstrap-options> I<OPTIONS>]"
+msgid "  [B<--debootstrap-options> I<OPTIONS>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lingmo-sys-build_config.1:83
-msgid "  [B<--lingmo-debootstrap-script> I<SCRIPT>]"
+msgid "  [B<--debootstrap-script> I<SCRIPT>]"
 msgstr ""
 
 #. type: Plain text
@@ -1270,26 +1270,26 @@ msgstr ""
 #. type: IP
 #: en/lingmo-sys-build_config.1:310
 #, no-wrap
-msgid "B<--lingmo-debootstrap-options> I<OPTIONS>"
+msgid "B<--debootstrap-options> I<OPTIONS>"
 msgstr ""
 
 #. type: Plain text
 #: en/lingmo-sys-build_config.1:312
 msgid ""
-"passes the given options to lingmo-debootstrap when setting up the base system."
+"passes the given options to debootstrap when setting up the base system."
 msgstr ""
 
 #. type: IP
 #: en/lingmo-sys-build_config.1:312
 #, no-wrap
-msgid "B<--lingmo-debootstrap-script> I<SCRIPT>"
+msgid "B<--debootstrap-script> I<SCRIPT>"
 msgstr ""
 
 #. type: Plain text
 #: en/lingmo-sys-build_config.1:314
 msgid ""
-"tells lingmo-debootstrap to use an alternate bootstrap script (last parameter to "
-"lingmo-debootstrap)."
+"tells debootstrap to use an alternate bootstrap script (last parameter to "
+"debootstrap)."
 msgstr ""
 
 #. type: IP

@@ -19,7 +19,7 @@ Exit ()
 		set | grep -e ^LINGMO_SYS_BUILD
 	fi
 
-	# Skip if we have not yet completed the initial bootstrapping (bootstrap_lingmo-debootstrap)
+	# Skip if we have not yet completed the initial bootstrapping (bootstrap_debootstrap)
 	# (nothing to be done; avoids unhelpful messages)
 	if ! Stagefile_exists bootstrap; then
 		return ${VALUE}

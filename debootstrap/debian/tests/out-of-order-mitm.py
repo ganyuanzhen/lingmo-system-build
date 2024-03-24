@@ -7,8 +7,8 @@
 """Flask app which MITM's an archive to generate out-of-order apt lists.
 
 Specifically, it prepends an additional Packages file stanza for a non-existent
-lower version of apt: a fixed version of lingmo-debootstrap will find the second
-(correct) apt stanza and succeed; a broken version of lingmo-debootstrap will find
+lower version of apt: a fixed version of debootstrap will find the second
+(correct) apt stanza and succeed; a broken version of debootstrap will find
 only the first (non-existent) apt stanza and fail.
 """
 import functools
