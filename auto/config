@@ -21,7 +21,7 @@ lingmo-sys-build config noauto \
     --firmware-chroot true \
     --uefi-secure-boot enable \
     --initramfs live-boot \
-    --linux-packages "linux-image-6.7.4-amd64-unsigned linux-headers-6.7.4-amd64" \
+    --linux-packages "linux-image" \
     --linux-flavours "6.7.4-amd64-unsigned" \
     --binary-images iso \
     --debian-installer live \
