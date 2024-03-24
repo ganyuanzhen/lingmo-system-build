@@ -38,7 +38,7 @@ jobs:
             mv config/ build/
             cd build/
             sudo chmod +x auto/*
-            sudo lingmo-sys-build clean
+            # sudo lingmo-sys-build clean
             sudo lingmo-sys-build config           
 
       - name: Default config#1
