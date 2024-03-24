@@ -2,7 +2,7 @@
 
 set -e
 
-lm.blwr clean noauto "${@}"
+lingmo-sys-build clean noauto "${@}"
 
 rm -f config/binary config/bootstrap config/chroot config/common config/source
 rm -f build.log
