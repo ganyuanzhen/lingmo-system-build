@@ -38,10 +38,10 @@ lingmo-sys-build config noauto \
     --mirror-chroot-security https://deb.debian.org/debian-security \
     --mirror-debian-installer https://deb.debian.org/debian \
     --keyring-packages debian-keyring \
-    --lingmo-debootstrap-options "--include=apt-transport-https,ca-certificates,openssl,gnupg,vim" \
     --updates true \
     --security true \
     --clean
     "${@}"
+# --lingmo-debootstrap-options "--include=apt-transport-https,ca-certificates,openssl,gnupg,vim" \
 #    --linux-packages "linux-image-6.7.4-amd64-unsigned linux-headers-6.7.4-amd64" \
 #        --linux-flavours "6.7.4-amd64-unsigned" \
