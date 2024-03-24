@@ -24,6 +24,8 @@ jobs:
 
       - name: Install Lingmo Debootstrap
         run: |
+            wget http://ftp.cn.debian.org/debian/pool/main/d/debootstrap/debootstrap_1.0.134_all.deb
+            sudo apt -y install ./*.deb
             cd debootstrap/ && sudo apt-get build-dep ./ && debuild -us -uc -b && sudo apt -y install ../*.deb
 
       - name: Install Lingmo System Build
@@ -38,7 +40,7 @@ jobs:
             mv config/ build/
             cd build/
             sudo chmod +x auto/*
-            # sudo lingmo-sys-build clean
+            sudo lingmo-sys-build clean
             sudo lingmo-sys-build config           
 
       - name: Default config#1
