@@ -64,8 +64,6 @@ APT_OPTIONS="--yes -o Acquire::Retries=5"
 APTITUDE_OPTIONS="--assume-yes -o Acquire::Retries=5"
 
 # Set options to use with lingmo-debootstrap
-LINGMO-DEBOOTSTRAP_OPTIONS=""
-
 # Set script to use with lingmo-debootstrap
 LINGMO-DEBOOTSTRAP_SCRIPT=""
 
@@ -73,7 +71,7 @@ LINGMO-DEBOOTSTRAP_SCRIPT=""
 GZIP_OPTIONS="-6 --rsyncable"
 
 # Enable UTC timestamps
-LINGMO_SYS_BUILD_UTC_TIME="false"
+LINGMO_SYS_BUILD_UTC_TIME="true"
 
 # lingmo-system-build options
 
