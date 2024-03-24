@@ -27,8 +27,8 @@ test-unshare:
     - job: build
       artifacts: true
   variables:
-    LINGMO-DEBOOTSTRAP_SCRIPT: $CI_PROJECT_DIR/lingmo-debootstrap
-    LINGMO-DEBOOTSTRAP_DIR: $CI_PROJECT_DIR
+    DEBOOTSTRAP_SCRIPT: $CI_PROJECT_DIR/lingmo-debootstrap
+    DEBOOTSTRAP_DIR: $CI_PROJECT_DIR
     AUTOPKGTEST_TMP: /tmp
   script:
     - apt-get update
@@ -47,7 +47,7 @@ test-buildd:
       apt-get update
       apt-get install --no-install-recommends -y wget distro-info
       for SUITE in bullseye bookworm trixie; do
-          env LINGMO-DEBOOTSTRAP_DIR="$CI_PROJECT_DIR" ./lingmo-debootstrap --variant=buildd "$SUITE" ./chroot
+          env DEBOOTSTRAP_DIR="$CI_PROJECT_DIR" ./lingmo-debootstrap --variant=buildd "$SUITE" ./chroot
           # check if chroots before trixie are unmerged and chroots of trixie
           # or later are using merged-/usr
           case "$SUITE" in

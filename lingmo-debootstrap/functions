@@ -297,15 +297,15 @@ mirror_style () {
 }
 
 force_md5 () {
-	LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD=MD5SUM
-	export LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD
+	DEBOOTSTRAP_CHECKSUM_FIELD=MD5SUM
+	export DEBOOTSTRAP_CHECKSUM_FIELD
 }
 
 verify_checksum () {
 	# args: dest checksum size
 	local expchecksum="$2"
 	local expsize="$3"
-	if [ "$LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD" = "MD5SUM" ]; then
+	if [ "$DEBOOTSTRAP_CHECKSUM_FIELD" = "MD5SUM" ]; then
 		if in_path md5sum; then
 			relchecksum=$(md5sum < "$1" | sed 's/ .*$//')
 		elif in_path md5; then
@@ -525,7 +525,7 @@ get_release_checksum () {
 	local reldest path
 	reldest="$1"
 	path="$2"
-	if [ "$LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD" = MD5SUM ]; then
+	if [ "$DEBOOTSTRAP_CHECKSUM_FIELD" = MD5SUM ]; then
 		local match="^[Mm][Dd]5[Ss][Uu][Mm]"
 	else
 		local match="^[Ss][Hh][Aa]$SHA_SIZE:"
@@ -1600,7 +1600,7 @@ $unique = shift @ARGV; $field = lc(shift @ARGV); $mirror = shift @ARGV;
 %expected = map { $_, 0 } @ARGV;
 %outputs;
 $prevpkg = "";
-$chksumfield = lc($ENV{LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD}).":";
+$chksumfield = lc($ENV{DEBOOTSTRAP_CHECKSUM_FIELD}).":";
 
 sub emit_or_store_pkg {
 	if ($unique && defined $output_val) {
@@ -1731,8 +1731,8 @@ while (<STDIN>) {
 	}
 elif [ -e "/usr/lib/lingmo-debootstrap/pkgdetails" ]; then
 	PKGDETAILS="/usr/lib/lingmo-debootstrap/pkgdetails"
-elif [ -e "$LINGMO-DEBOOTSTRAP_DIR/pkgdetails" ]; then
-	PKGDETAILS="$LINGMO-DEBOOTSTRAP_DIR/pkgdetails"
+elif [ -e "$DEBOOTSTRAP_DIR/pkgdetails" ]; then
+	PKGDETAILS="$DEBOOTSTRAP_DIR/pkgdetails"
 else
 	PKGDETAILS=""
 fi

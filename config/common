@@ -65,7 +65,7 @@ APTITUDE_OPTIONS="--assume-yes -o Acquire::Retries=5"
 
 # Set options to use with lingmo-debootstrap
 # Set script to use with lingmo-debootstrap
-# LINGMO-DEBOOTSTRAP_SCRIPT=""
+# DEBOOTSTRAP_SCRIPT=""
 
 # Set options to use with gzip
 GZIP_OPTIONS="-6 --rsyncable"

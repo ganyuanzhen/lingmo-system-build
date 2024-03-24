@@ -10,15 +10,15 @@ export PATH
 
 ###########################################################################
 
-if [ -z "$LINGMO-DEBOOTSTRAP_DIR" ]; then
+if [ -z "$DEBOOTSTRAP_DIR" ]; then
 	if [ -x /lingmo-debootstrap/lingmo-debootstrap ]; then
-		LINGMO-DEBOOTSTRAP_DIR=/lingmo-debootstrap
+		DEBOOTSTRAP_DIR=/lingmo-debootstrap
 	else
-		LINGMO-DEBOOTSTRAP_DIR=/usr/share/lingmo-debootstrap
+		DEBOOTSTRAP_DIR=/usr/share/lingmo-debootstrap
 	fi
 fi
 
-. "$LINGMO-DEBOOTSTRAP_DIR/functions"
+. "$DEBOOTSTRAP_DIR/functions"
 exec 4>&1
 
 LANG=C
@@ -32,7 +32,7 @@ MERGED_USR=""
 ARCH="amd64"
 HOST_ARCH=""
 HOST_OS=""
-KEEP_LINGMO-DEBOOTSTRAP_DIR=""
+KEEP_DEBOOTSTRAP_DIR=""
 USE_DEBIANINSTALLER_INTERACTION=""
 SECOND_STAGE_ONLY=""
 CHROOTDIR=""
@@ -232,7 +232,7 @@ if [ $# != 0 ] ; then
 		shift
 		;;
 	    --keep-lingmo-debootstrap-dir)
-		KEEP_LINGMO-DEBOOTSTRAP_DIR=true
+		KEEP_DEBOOTSTRAP_DIR=true
 		shift
 		;;
 	    --arch|--arch=?*)
@@ -477,14 +477,14 @@ fi
 ###########################################################################
 
 if [ "$SECOND_STAGE_ONLY" = "true" ]; then
-	SUITE=$(cat "$LINGMO-DEBOOTSTRAP_DIR/suite")
-	if [ -e "$LINGMO-DEBOOTSTRAP_DIR/extra-suites" ]; then
-		EXTRA_SUITES=$(cat "$LINGMO-DEBOOTSTRAP_DIR/extra-suites")
+	SUITE=$(cat "$DEBOOTSTRAP_DIR/suite")
+	if [ -e "$DEBOOTSTRAP_DIR/extra-suites" ]; then
+		EXTRA_SUITES=$(cat "$DEBOOTSTRAP_DIR/extra-suites")
 	fi
-	ARCH=$(cat "$LINGMO-DEBOOTSTRAP_DIR/arch")
-	USER_MIRROR=$(cat "$LINGMO-DEBOOTSTRAP_DIR/mirror")
-	if [ -e "$LINGMO-DEBOOTSTRAP_DIR/variant" ]; then
-		VARIANT=$(cat "$LINGMO-DEBOOTSTRAP_DIR/variant")
+	ARCH=$(cat "$DEBOOTSTRAP_DIR/arch")
+	USER_MIRROR=$(cat "$DEBOOTSTRAP_DIR/mirror")
+	if [ -e "$DEBOOTSTRAP_DIR/variant" ]; then
+		VARIANT=$(cat "$DEBOOTSTRAP_DIR/variant")
 		SUPPORTED_VARIANTS="$VARIANT"
 	fi
 	if [ -z "$CHROOTDIR" ]; then
@@ -492,7 +492,7 @@ if [ "$SECOND_STAGE_ONLY" = "true" ]; then
 	else
 		TARGET=$CHROOTDIR
 	fi
-	SCRIPT="$LINGMO-DEBOOTSTRAP_DIR/suite-script"
+	SCRIPT="$DEBOOTSTRAP_DIR/suite-script"
 else
 	if ! in_path wget; then
 		error 1 NEEDWGET "You must install wget to download packages."
@@ -512,12 +512,12 @@ else
 		fi
 	fi
 
-	SCRIPT="$LINGMO-DEBOOTSTRAP_DIR/scripts/$1"
+	SCRIPT="$DEBOOTSTRAP_DIR/scripts/$1"
 	if ! [ -e "$SCRIPT" ] && [ $(which distro-info 2>/dev/null) ]; then
 		if debian-distro-info --series "$1" >/dev/null 2>&1; then
-			SCRIPT="$LINGMO-DEBOOTSTRAP_DIR/scripts/sid"
+			SCRIPT="$DEBOOTSTRAP_DIR/scripts/sid"
 		elif ubuntu-distro-info --series "$1" >/dev/null 2>&1; then
-			SCRIPT="$LINGMO-DEBOOTSTRAP_DIR/scripts/gutsy"
+			SCRIPT="$DEBOOTSTRAP_DIR/scripts/gutsy"
 		fi
 	fi
 	if [ -n "$VARIANT" ] && [ -e "${SCRIPT}.${VARIANT}" ]; then
@@ -525,8 +525,8 @@ else
 		SUPPORTED_VARIANTS="$VARIANT"
 	fi
 	if [ "$4" != "" ]; then
-		if [ -e "$LINGMO-DEBOOTSTRAP_DIR/scripts/$4" ]; then
-			SCRIPT="$LINGMO-DEBOOTSTRAP_DIR/scripts/$4"
+		if [ -e "$DEBOOTSTRAP_DIR/scripts/$4" ]; then
+			SCRIPT="$DEBOOTSTRAP_DIR/scripts/$4"
 		else
 			SCRIPT="$4"
 		fi
@@ -538,7 +538,7 @@ fi
 if am_doing_phase kill_target; then
 	# Require empty target when we are going to remove it afterwards
 	if [ -d "$TARGET" ] && [ -n "$(ls -A "$TARGET")" ] && \
-	   [ "$KEEP_LINGMO-DEBOOTSTRAP_DIR" != "true" ]; then
+	   [ "$KEEP_DEBOOTSTRAP_DIR" != "true" ]; then
 		error 1 BADTARGET "Target directory '$TARGET' is not empty and it would be wiped"
 	fi
 fi
@@ -551,8 +551,8 @@ if in_path dpkg && \
 elif in_path udpkg && \
      udpkg --print-architecture >/dev/null 2>&1; then
 	HOST_ARCH=$(/usr/bin/udpkg --print-architecture)
-elif [ -e "$LINGMO-DEBOOTSTRAP_DIR/arch" ]; then
-	HOST_ARCH=$(cat "$LINGMO-DEBOOTSTRAP_DIR/arch")
+elif [ -e "$DEBOOTSTRAP_DIR/arch" ]; then
+	HOST_ARCH=$(cat "$DEBOOTSTRAP_DIR/arch")
 fi
 HOST_OS="$HOST_ARCH"
 # basic host OS guessing for non-Debian systems
@@ -606,9 +606,9 @@ if ! in_path "sha${SHA_SIZE}sum" && ! in_path "sha${SHA_SIZE}"; then
 	warning SHA_SIZE "Cannot find binary for checking sha%s checksums, falling back to sha1" "${SHA_SIZE}"
 	SHA_SIZE=1
 fi
-LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD="SHA$SHA_SIZE"
+DEBOOTSTRAP_CHECKSUM_FIELD="SHA$SHA_SIZE"
 
-export ARCH SUITE EXTRA_SUITES TARGET CHROOT_CMD SHA_SIZE LINGMO-DEBOOTSTRAP_CHECKSUM_FIELD
+export ARCH SUITE EXTRA_SUITES TARGET CHROOT_CMD SHA_SIZE DEBOOTSTRAP_CHECKSUM_FIELD
 
 if am_doing_phase first_stage second_stage; then
 	if in_path id && [ "$(id -u)" -ne 0 ]; then
@@ -775,10 +775,10 @@ fi
 
 if am_doing_phase save_variables; then
 	cp "$0"				 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
-	cp "$LINGMO-DEBOOTSTRAP_DIR/functions"	 "$TARGET/lingmo-debootstrap/functions"
+	cp "$DEBOOTSTRAP_DIR/functions"	 "$TARGET/lingmo-debootstrap/functions"
 	cp "$SCRIPT"			 "$TARGET/lingmo-debootstrap/suite-script"
 	# pick up common setting scripts
-	cp "$LINGMO-DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/lingmo-debootstrap/"
+	cp "$DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/lingmo-debootstrap/"
 	echo "$ARCH"			>"$TARGET/lingmo-debootstrap/arch"
 	echo "$SUITE"			>"$TARGET/lingmo-debootstrap/suite"
 	[ "" = "$EXTRA_SUITES" ] ||
@@ -812,10 +812,10 @@ if am_doing_phase first_stage; then
 
 	if ! am_doing_phase second_stage; then
 		cp "$0"				 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
-		cp "$LINGMO-DEBOOTSTRAP_DIR/functions"	 "$TARGET/lingmo-debootstrap/functions"
+		cp "$DEBOOTSTRAP_DIR/functions"	 "$TARGET/lingmo-debootstrap/functions"
 		cp "$SCRIPT"			 "$TARGET/lingmo-debootstrap/suite-script"
 		# pick up common setting scripts
-		cp "$LINGMO-DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/lingmo-debootstrap/"
+		cp "$DEBOOTSTRAP_DIR"/scripts/*-common	"$TARGET/lingmo-debootstrap/"
 		echo "$ARCH"			>"$TARGET/lingmo-debootstrap/arch"
 		echo "$SUITE"			>"$TARGET/lingmo-debootstrap/suite"
 		[ "" = "$EXTRA_SUITES" ] ||
@@ -839,8 +839,8 @@ fi
 
 if am_doing_phase second_stage; then
 	if [ "$SECOND_STAGE_ONLY" = true ]; then
-		required=$(cat "$LINGMO-DEBOOTSTRAP_DIR/required")
-		base=$(cat "$LINGMO-DEBOOTSTRAP_DIR/base")
+		required=$(cat "$DEBOOTSTRAP_DIR/required")
+		base=$(cat "$DEBOOTSTRAP_DIR/base")
 		all_debs="$required $base"
 	fi
 
@@ -850,7 +850,7 @@ if am_doing_phase second_stage; then
 	second_stage_install
 
 	if [ -e "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" ]; then
-		if [ "$KEEP_LINGMO-DEBOOTSTRAP_DIR" = true ]; then
+		if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
 			cp "$TARGET/lingmo-debootstrap/lingmo-debootstrap.log" "$TARGET/var/log/bootstrap.log"
 		else
 			# lingmo-debootstrap.log is still open as stdout/stderr and needs
@@ -863,7 +863,7 @@ if am_doing_phase second_stage; then
 	fi
 	sync
 
-	if [ "$KEEP_LINGMO-DEBOOTSTRAP_DIR" = true ]; then
+	if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
 		if [ -x "$TARGET/lingmo-debootstrap/lingmo-debootstrap" ]; then
 			chmod 644 "$TARGET/lingmo-debootstrap/lingmo-debootstrap"
 		fi
@@ -873,7 +873,7 @@ if am_doing_phase second_stage; then
 fi
 
 if am_doing_phase kill_target; then
-	if [ "$KEEP_LINGMO-DEBOOTSTRAP_DIR" != true ]; then
+	if [ "$KEEP_DEBOOTSTRAP_DIR" != true ]; then
                 info KILLTARGET "Deleting target directory"
 		rm -rf --one-file-system "$TARGET"
 	fi

@@ -53,27 +53,27 @@ mkdir -p chroot
 # Setting lingmo-debootstrap options
 if [ -n "${LINGMO_SYS_BUILD_ARCHITECTURE}" ]
 then
-	LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS} --arch=${LINGMO_SYS_BUILD_ARCHITECTURE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LINGMO_SYS_BUILD_ARCHITECTURE}"
 fi
 
 if [ "${LINGMO_SYS_BUILD_ARCHIVE_AREAS}" != "main" ]
 then
 	# Modify archive areas to remove leading/trailing whitespaces and replace other whitepspace with commas
-	LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS} --components=$(echo ${LINGMO_SYS_BUILD_ARCHIVE_AREAS} | sed -e 's| |,|g')"
-	FOREIGN_LINGMO-DEBOOTSTRAP_OPTIONS="--components=$(echo ${LINGMO_SYS_BUILD_ARCHIVE_AREAS} | sed -e 's| |,|g')"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LINGMO_SYS_BUILD_ARCHIVE_AREAS} | sed -e 's| |,|g')"
+	FOREIGN_DEBOOTSTRAP_OPTIONS="--components=$(echo ${LINGMO_SYS_BUILD_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
 if [ "${_VERBOSE}" = "true" ]
 then
-	LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS} --verbose"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
 fi
 
 # If LINGMO_SYS_BUILD_APT_SECURE is false, do not check signatures of the Release file
 if [ "${LINGMO_SYS_BUILD_APT_SECURE}" = "false" ]
 then
-	LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS} --no-check-gpg"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --no-check-gpg"
 else
-	LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS} --force-check-gpg"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --force-check-gpg"
 fi
 
 if [ "${LINGMO_SYS_BUILD_CACHE_PACKAGES}" = "true" ]
@@ -86,7 +86,7 @@ then
 
 	Print_breakage
 	Echo_message "Running lingmo-debootstrap (download-only)..."
-	lingmo-debootstrap ${LINGMO-DEBOOTSTRAP_OPTIONS} --download-only "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${LINGMO-DEBOOTSTRAP_SCRIPT}
+	lingmo-debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
 
 	# Removing old cache
 	rm -f cache/packages.bootstrap/*.deb
@@ -104,17 +104,17 @@ if [ "${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_ARCHITECTURE}" = "${LINGMO_SYS_BUILD_ARC
 
 	if [ -n "${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_EXCLUDE}" ]
 	then
-		LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_EXCLUDE} | sed 's|  *|,|g')"
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_EXCLUDE} | sed 's|  *|,|g')"
 	fi
 
 	Echo_message "Bootstrap will be foreign"
-	lingmo-debootstrap ${LINGMO-DEBOOTSTRAP_OPTIONS} --foreign "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${LINGMO-DEBOOTSTRAP_SCRIPT}
+	lingmo-debootstrap ${DEBOOTSTRAP_OPTIONS} --foreign "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
 
 	Echo_message "Running lingmo-debootstrap second stage under QEMU"
 	cp ${LINGMO_SYS_BUILD_BOOTSTRAP_QEMU_STATIC} chroot/usr/bin
-	Chroot chroot /bin/sh /lingmo-debootstrap/lingmo-debootstrap --second-stage ${FOREIGN_LINGMO-DEBOOTSTRAP_OPTIONS}
+	Chroot chroot /bin/sh /lingmo-debootstrap/lingmo-debootstrap --second-stage ${FOREIGN_DEBOOTSTRAP_OPTIONS}
 else
-	lingmo-debootstrap ${LINGMO-DEBOOTSTRAP_OPTIONS} "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${LINGMO-DEBOOTSTRAP_SCRIPT}
+	lingmo-debootstrap ${DEBOOTSTRAP_OPTIONS} "${LINGMO_SYS_BUILD_PARENT_DISTRIBUTION_CHROOT}" chroot "${LINGMO_SYS_BUILD_PARENT_MIRROR_BOOTSTRAP}" ${DEBOOTSTRAP_SCRIPT}
 fi
 
 # Deconfiguring lingmo-debootstrap configurations

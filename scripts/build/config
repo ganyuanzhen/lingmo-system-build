@@ -466,12 +466,12 @@ Local_arguments ()
 				;;
 
 			--lingmo-debootstrap-options)
-				LINGMO-DEBOOTSTRAP_OPTIONS="${2}"
+				DEBOOTSTRAP_OPTIONS="${2}"
 				shift 2
 				;;
 
 			--lingmo-debootstrap-script)
-				LINGMO-DEBOOTSTRAP_SCRIPT="${2}"
+				DEBOOTSTRAP_SCRIPT="${2}"
 				shift 2
 				;;
 
@@ -1034,10 +1034,10 @@ APT_OPTIONS="${APT_OPTIONS}"
 APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
 
 # Set options to use with lingmo-debootstrap
-LINGMO-DEBOOTSTRAP_OPTIONS="${LINGMO-DEBOOTSTRAP_OPTIONS}"
+DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS}"
 
 # Set script to use with lingmo-debootstrap
-LINGMO-DEBOOTSTRAP_SCRIPT="${LINGMO-DEBOOTSTRAP_SCRIPT}"
+DEBOOTSTRAP_SCRIPT="${DEBOOTSTRAP_SCRIPT}"
 
 # Set options to use with gzip
 GZIP_OPTIONS="${GZIP_OPTIONS}"
