@@ -887,7 +887,6 @@ libedataserver-1.2-27t64
 libedataserverui-1.2-4t64
 libedataserverui4-1.0-0
 libedit2
-libefiboot1
 libefivar1t64
 libegl-dev
 libegl-mesa0
@@ -1477,7 +1476,6 @@ libnma0
 libnode-dev
 libnode108
 libnode109
-libnorm1
 libnotify-bin
 libnotify4
 libnova-0.16-0t64
@@ -1554,7 +1552,6 @@ libpeas-1.0-0
 libpeas-common
 libpentaho-reporting-flow-engine-java
 libperl5.38t64
-libpgm-5.3-0
 libphonenumber8
 libphonon-l10n
 libphonon4qt5-4t64
@@ -1660,7 +1657,6 @@ libqt6core6t64
 libqt6dbus6t64
 libqt6gui6t64
 libqt6network6t64
-libqt6opengl6
 libqt6qml6
 libqt6qmlmodels6
 libqt6quick6
