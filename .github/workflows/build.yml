@@ -38,13 +38,13 @@ jobs:
             mv config/ build/
             cd build/
             sudo chmod +x auto/*
-            sudo lingmo-system-build clean
-            sudo lingmo-system-build config           
+            sudo lingmo-sys-build clean
+            sudo lingmo-sys-build config           
 
       - name: Default config#1
         run: |
             cd build/
-            sudo lingmo-system-build build
+            sudo lingmo-sys-build build
 
       - name: Read Upload
         run: |
