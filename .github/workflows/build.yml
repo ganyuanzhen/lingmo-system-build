@@ -45,7 +45,7 @@ jobs:
 
       - name: Default config#1
         run: |
-            cd build/
+            cd build-sys/
             sudo lingmo-sys-build build
 
       - name: Read Upload
