@@ -2614,7 +2614,6 @@ qtwayland5
 raspi-firmware
 readline-common
 reiserfsprogs
-rpcsvc-proto
 rsync
 rsyslog
 rtkit
@@ -2683,7 +2682,6 @@ ure
 ure-java
 usb-modeswitch
 usb-modeswitch-data
-usb.ids
 usbmuxd
 usbutils
 user-setup
