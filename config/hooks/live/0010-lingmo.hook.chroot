@@ -9,6 +9,5 @@ apt remove breeze eog -y
 apt autoremove -y
 apt install lingmo-settings -y
 
-rm /etc/apt/sources.d/debianall.list
 rm /etc/apt/sources.d/pkg.list
 apt update
