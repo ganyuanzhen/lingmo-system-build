@@ -520,12 +520,6 @@ gpgv
 grep
 grilo-plugins-0.3
 groff-base
-grub-common
-grub-efi
-grub-efi-amd64
-grub-efi-amd64-bin
-grub-pc-bin
-grub2-common
 gsettings-desktop-schemas
 gsfonts
 gstreamer1.0-gl

@@ -54,7 +54,3 @@ iucode-tool
 setserial
 user-setup
 efibootmgr
-grub-efi-amd64
-grub-efi-amd64-bin
-shim-signed
-shim-helpers-amd64-signed
