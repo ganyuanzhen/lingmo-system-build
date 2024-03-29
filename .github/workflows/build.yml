@@ -32,6 +32,9 @@ jobs:
         run: |
             sudo apt-get build-dep ./
             sudo make install
+      - name: Build GRUB EFI
+        run: |
+            sudo make grub
 
       - name: Config Base Settings
         run: |

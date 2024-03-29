@@ -37,6 +37,14 @@ test:
 build:
 	@echo "Nothing to build."
 
+grub:
+    cd boot/grub-efi-amd64/
+    apt build-dep ./
+    debuild -us -uc -b
+    cd ../
+    mv ./*.deb ../config/packages.chroot/
+    cd ..
+
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
