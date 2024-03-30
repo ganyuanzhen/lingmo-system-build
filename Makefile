@@ -39,7 +39,7 @@ build:
 
 grub:
 	@echo "Build GRUB-EFI-AMD64"
-	cd boot/grub-efi-amd64/
+	cd boot/grub/
 	apt build-dep ./
 	debuild -us -uc -b
 	cd ../

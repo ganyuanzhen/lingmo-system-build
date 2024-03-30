@@ -1,4 +1,4 @@
-grub2 (2.12-2) UNRELEASED; urgency=medium
+grub2 (2.12-1) UNRELEASED; urgency=medium
 
   [ Colin Watson ]
   * Update signing-template Uploaders to match main package.
