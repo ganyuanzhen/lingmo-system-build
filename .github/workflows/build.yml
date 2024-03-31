@@ -34,7 +34,7 @@ jobs:
             sudo make install
       - name: Build GRUB EFI
         run: |
-            sudo make grub
+            cd boot/grub/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && mv ./*.deb ../config/packages.chroot/ && cd ..
 
       - name: Config Base Settings
         run: |
@@ -46,7 +46,7 @@ jobs:
             sudo lingmo-sys-build clean
             sudo lingmo-sys-build config           
 
-      - name: Default config#1
+      - name: Build System
         run: |
             cd build-sys/
             sudo lingmo-sys-build build
