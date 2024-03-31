@@ -32,9 +32,9 @@ jobs:
         run: |
             sudo apt-get build-dep ./
             sudo make install
-      - name: Build GRUB EFI
-        run: |
-            cd boot/grub/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && mv ./*.deb ../config/packages.chroot/ && cd ..
+      # - name: Build GRUB EFI
+      #  run: |
+      #      cd boot/grub/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && mv ./*.deb ../config/packages.chroot/ && cd ..
 
       - name: Config Base Settings
         run: |
