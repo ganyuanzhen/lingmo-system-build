@@ -32,7 +32,7 @@ jobs:
         run: |
             sudo apt-get build-dep ./
             sudo make install
-            sudo cp keying/lingmo.gpg /usr/share/keyings/lingmo-key.gpg
+            sudo apt-key add keying/lingmo.gpg
       # - name: Build GRUB EFI
       #  run: |
       #      cd boot/grub/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && mv ./*.deb ../config/packages.chroot/ && cd ..

@@ -2,7 +2,7 @@ mirror_style release
 download_style apt
 finddebs_style from-indices
 variants - buildd fakechroot minbase
-keyring /usr/share/keyrings/lingmo-key.gpg
+# keyring /usr/share/keyrings/lingmo.gpg
 
 # include common settings
 if [ -e "$DEBOOTSTRAP_DIR/scripts/debian-common" ]; then
