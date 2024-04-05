@@ -1,7 +1,7 @@
 # nautilus
 dirmngr
-linux-image-6.7.4-amd64-unsigned
-linux-headers-6.7.4-amd64
+linux-image-6.7.9-amd64-unsigned
+linux-headers-6.7.9-amd64
 software-properties-common
 codium
 kwin-x11
@@ -45,7 +45,7 @@ lingmo-terminal
 lingmo-wallpapers
 lingmo-ocr
 lingmo-qt-plugins
-# lingmo-gtk-themes
+lingmo-gtk-themes
 lingmo-plymouth
 lingmo-screenlocker
 lingmo-screenshot
@@ -54,17 +54,6 @@ lingmo-statusbar
 lingmo-texteditor
 lingmo-wayland-protocols
 lingmo-gettext-tools
-libdtkcore5
-libdtkcore-dev
-libdtkcore5-bin
-libdtkgui5
-libdtkgui-dev
-libdtkgui5-bin
-libdtkwidget5
-dtkwidget5-examples
-libdtkwidget-dev
-libdtkwidget5-bin
-libdtkcommon-dev
 firmware-linux
 firmware-linux-nonfree
 firmware-linux-free

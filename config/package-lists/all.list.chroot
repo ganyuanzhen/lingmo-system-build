@@ -425,9 +425,6 @@ g++-13
 g++-13-x86-64-linux-gnu
 g++-x86-64-linux-gnu
 gcc
-gcc-11-base
-gcc-12
-gcc-12-base
 gcc-13
 gcc-13-base
 gcc-13-x86-64-linux-gnu
@@ -1957,10 +1954,10 @@ lingmo-wallpapers
 lingmo-wayland-protocols
 lingmoui
 linux-base
-linux-headers-6.7.4-amd64
-linux-headers-6.7.4-common
-linux-image-6.7.4-amd64-unsigned
-linux-kbuild-6.7.4
+linux-headers-6.7.9-amd64
+linux-headers-6.7.9-common
+linux-image-6.7.9-amd64-unsigned
+linux-kbuild-6.7.9
 linux-libc-dev
 live-boot
 live-boot-doc
