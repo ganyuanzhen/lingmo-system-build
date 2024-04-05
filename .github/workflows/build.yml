@@ -32,19 +32,14 @@ jobs:
         run: |
             sudo apt-get build-dep ./
             sudo make install
+            sudo cp keying/lingmo.gpg /usr/share/keyings/lingmo-key.gpg
       # - name: Build GRUB EFI
       #  run: |
       #      cd boot/grub/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && mv ./*.deb ../config/packages.chroot/ && cd ..
 
       - name: Config Base Settings
         run: |
-            mkdir build-sys/
-            mv auto/ build-sys/
-            mv config/ build-sys/
-            cd build-sys/
-            sudo chmod +x auto/*
-            sudo lingmo-sys-build clean
-            sudo lingmo-sys-build config           
+            mkdir build-sys/ && mv auto/ build-sys/ && mv config/ build-sys/ && cd build-sys/ && sudo chmod +x auto/*&& sudo lingmo-sys-build clean && sudo lingmo-sys-build config           
 
       - name: Build System
         run: |

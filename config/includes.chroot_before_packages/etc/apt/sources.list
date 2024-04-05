@@ -1,4 +1,0 @@
-# Lingmo OS Apt Sources
-deb https://packages.lingmo.org polaris main common
-deb https://packages.lingmo.org/pkg polaris-pkgs main kernel devtool
-# 2023-2024 Lingmo OS Team <team@lingmo.org>

@@ -9,11 +9,11 @@ lingmo-sys-build config noauto \
     --architectures "$ARCH" \
     --binary-filesystem ext4 \
     --architecture amd64 \
-    --archive-area "main contrib non-free non-free-firmware" \
+    --archive-area "main contrib non-free" \
     --bootappend-live "boot=live username=lingmo noautologin quiet splash" \
     --memtest memtest86+ \
-    --distribution testing \
-    --parent-distribution testing \
+    --distribution polaris \
+    --parent-distribution polaris \
     --win32-loader true \
     --apt-recommends true \
     --cache-packages false \
@@ -22,7 +22,7 @@ lingmo-sys-build config noauto \
     --uefi-secure-boot enable \
     --initramfs live-boot \
     --linux-packages "linux-image" \
-    --linux-flavours "6.7.4-amd64-unsigned" \
+    --linux-flavours "6.7.9-amd64-unsigned" \
     --binary-images iso \
     --debian-installer live \
     --debian-installer-gui true \
@@ -31,15 +31,15 @@ lingmo-sys-build config noauto \
     --iso-application "LingmoOS" \
     --iso-publisher "LingmoOS Project" \
     --iso-volume "Lingmo OS Live" \
-    --mirror-binary https://deb.debian.org/debian \
+    --mirror-binary https://packages.lingmo.org \
     --mirror-binary-security https://deb.debian.org/debian-security \
-    --mirror-bootstrap https://deb.debian.org/debian \
-    --mirror-chroot https://deb.debian.org/debian \
+    --mirror-bootstrap https://packages.lingmo.org \
+    --mirror-chroot https://packages.lingmo.org \
     --mirror-chroot-security https://deb.debian.org/debian-security \
-    --mirror-debian-installer https://deb.debian.org/debian \
+    --mirror-debian-installer https://packages.lingmo.org \
     --keyring-packages debian-keyring \
     --updates true \
-    --security true \
+    --security false \
     --clean
     "${@}"
 # --debootstrap-options "--include=apt-transport-https,ca-certificates,openssl,gnupg,vim" \
