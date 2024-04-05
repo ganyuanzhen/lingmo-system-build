@@ -557,7 +557,6 @@ hunspell-fr
 hunspell-fr-classical
 hunspell-gd
 hunspell-gl
-hunspell-gl-es
 hunspell-gu
 hunspell-he
 hunspell-hi
@@ -583,7 +582,6 @@ hunspell-sk
 hunspell-sl
 hunspell-sr
 hunspell-sv
-hunspell-sv-se
 hunspell-te
 hunspell-th
 hunspell-uk
@@ -611,7 +609,6 @@ isc-dhcp-client
 isc-dhcp-common
 iso-codes
 iucode-tool
-ixo-usb-jtag
 java-common
 java-wrappers
 javascript-common
@@ -1240,12 +1237,6 @@ libkrb5support0
 libksba8
 libkscreenlocker5
 libkwalletbackend5-5
-libkwaylandserver5
-libkwaylandserver5-5.20
-libkwin4-effect-builtins1
-libkwineffects12a
-libkwinglutils12
-libkwinxrenderutils12
 libkworkspace5-5
 liblangtag-common
 liblangtag1
@@ -2643,8 +2634,6 @@ vim
 vim-common
 vim-runtime
 vim-tiny
-virtualbox-guest-utils
-virtualbox-guest-x11
 vlc
 vlc-bin
 vlc-data
