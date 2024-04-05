@@ -38,7 +38,7 @@ lingmo-sys-build config noauto \
     --mirror-chroot-security https://deb.debian.org/debian-security \
     --mirror-debian-installer https://packages.lingmo.org \
     --keyring-packages debian-keyring \
-    --updates true \
+    --updates false \
     --security false \
     --clean
     "${@}"
