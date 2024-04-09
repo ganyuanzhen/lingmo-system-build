@@ -43,13 +43,13 @@ jobs:
 
       - name: Build System
         run: |
-            cd build-sys/
-            sudo lingmo-sys-build build
+            cd build-sys/ && sudo lingmo-sys-build build
 
       - name: Read Upload
         run: |
             mkdir artifact/
-            find build-sys -type f -name "*.iso" -exec mv {} artifact/ \;
+            # find build-sys -type f -name "*.iso" -exec mv {} artifact/ \;
+            mv build-sys/out/* artifact/
             
       - name: Artifact
         uses: actions/upload-artifact@v4
