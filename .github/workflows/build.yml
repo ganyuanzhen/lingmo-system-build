@@ -49,14 +49,15 @@ jobs:
       - name: Read Upload
         run: |
             mkdir artifact/
-            mv build-sys/* artifact/
-
+            find build-sys -type f -name "*.iso" -exec mv {} artifact/ \;
             
       - name: Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: artifact
-          path: ${{ github.workspace }}/artifact/
+          path: ${{ github.workspace }}/artifact/*
+          compression-level: 9 # maximum compression
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
       #
      # - name: Confirm iso
       #  run: sudo mv config/out/*.iso config/out/LingmoOS-2.0-Polaris-beta-dev-desktop-amd64.iso
