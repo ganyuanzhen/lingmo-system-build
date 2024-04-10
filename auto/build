@@ -8,9 +8,9 @@ lingmo-sys-build build noauto "${@}" 2>&1 | tee build.log
 
 # live-image-amd64.hybrid.iso 
 
-if [ -f "live-image-amd64.iso" ];then
+if [ -f "live-image-amd64.hybrid.iso" ];then
    # *.sum
-    mv live-image-amd64.iso $NAME-$BASE_VERSION-$CODE_NAME-$DATE-$SYS_TYPE-$SYSTEM_TYPE-$SYSTEM_ARCH$DISK
+    mv live-image-amd64.hybrid.iso $NAME-$BASE_VERSION-$CODE_NAME-$DATE-$SYS_TYPE-$SYSTEM_TYPE-$SYSTEM_ARCH$DISK
     md5sum ./*$DISK >> md5sum.README
     md5sum ./*$DISK >> md5sum.txt
     sha1sum ./*$DISK >> sha1sum.README

@@ -114,7 +114,7 @@ fi
 
 # Default entries
 DEFAULT_FLAVOUR="$(echo ${LINGMO_SYS_BUILD_LINUX_FLAVOURS} | awk '{ print $1 }')"
-DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
+DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-${DEFAULT_FLAVOUR})"
 DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
 KERNEL_LIVE="/${INITFS}/${DEFAULT_KERNEL}"

@@ -1,7 +1,7 @@
 # config/binary - options for lingmo-system-build(7), binary stage
 
 # Set image type
-LINGMO_SYS_BUILD_IMAGE_TYPE="iso"
+LINGMO_SYS_BUILD_IMAGE_TYPE="iso-hybrid"
 # iso-hybrid
 
 # Set image filesystem
