@@ -20,6 +20,7 @@ appmotor
 liblingmo
 lingmo
 lingmoui
+lingmo-base-common
 lingmo-calendar
 lingmo-core
 lingmo-calculator
@@ -35,6 +36,7 @@ lingmo-systemicons
 lingmo-launcher
 lingmo-music
 lingmo-filemanager
+lingmo-firmware
 lingmo-settings
 lingmo-setup
 lingmo-software
