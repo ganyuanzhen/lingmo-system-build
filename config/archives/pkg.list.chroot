@@ -1,5 +1,5 @@
 # Lingmo OS Apt Sources
-deb https://packages.lingmo.org polaris main
+deb https://packages.lingmo.org polaris main contrib non-free non-free-firmware
 deb https://deb.debian.org/debian testing main contrib non-free non-free-firmware
 deb-src https://deb.debian.org/debian testing main contrib non-free non-free-firmware
 deb https://deb.debian.org/debian testing-updates main contrib non-free non-free-firmware
