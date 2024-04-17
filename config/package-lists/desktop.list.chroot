@@ -91,7 +91,6 @@ firmware-brcm80211
 firmware-intel-sound
 firmware-cavium
 firmware-ipw2x00
-firmware-ivtv
 firmware-iwlwifi
 firmware-libertas
 firmware-realtek
